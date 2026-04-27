@@ -126,9 +126,10 @@ a:hover {
     padding: 0;
 }
 
-#general-info-container span {
+#general-info-container p {
     font-size: 0.85rem;
     opacity: 0.6;
+    margin: 0;
 }
 
 #general-info-temp {
@@ -143,7 +144,43 @@ a:hover {
     margin-top: 1rem;
 }
 
-#forecast-container span {
+#forecast-container p {
     font-size: 0.85rem;
     opacity: 0.6;
+    margin: 0;
+}
+
+#forecast {
+    display: flex;
+    flex-direction: column;
+}
+
+#forecast-days {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.day-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--sec-color);
+    padding: 4px;
+    border-radius: 15px;
+    font-weight: 600;
+    align-items: center;
+}
+
+.day-card:hover {
+    cursor: pointer;
+    background-color: #FFF8DE;
+}
+
+.day-card.active {
+    background-color: #FFF8DE;
+}
+
+#tempchart {
+    margin-top: 10px;
 }

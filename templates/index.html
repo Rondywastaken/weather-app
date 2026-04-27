@@ -25,7 +25,7 @@
         {% if location %}
             <div id="weather">
                 <div id="general-info-container">
-                    <span>General Info:</span>
+                    <p>General Info:</p>
                     <div id="general-info">
                         <div id="general-info-text">
                             <h2>{{ city }}, {{ country }} </h2>
@@ -37,10 +37,62 @@
                     </div>
                 </div>
                 <div id="forecast-container">
-                    <span>Forecast:</span>
+                    <p>Forecast:</p>
+                    <div id="forecast">
+                        <div id="forecast-days">
+                            {% for i in range(days | length) %}
+                                <div class="day-card {% if loop.first %}active{% endif %}", data-date="{{days[i]}}">
+                                    <span>{{ days[i] }}</span>
+                                    <span>{{ get_weather_icon(days_icons[i]) }}</span>
+                                    <span>{{ days_temps[i] }}°</span>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <canvas id="tempchart"></canvas>
+                    </div>
                 </div>
             </div>
         {% endif %}
     </div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const hours_by_day = {{ hours_by_day | tojson }}
+
+    const chart = new Chart("tempchart", {
+        type: "line",
+        data: {
+            labels: [],
+            datasets: [{
+                data: [],
+                borderColor: "#FFF8DE",
+                borderWidth: 2,
+                tension: 0.4,
+                pointBackgroundColor: "#FFF8DE",
+                pointBorderWidth: 5
+            }]
+        },
+        options: {
+            plugins: {
+                legend: { display: false }
+            }
+        }
+    })
+
+    function updateChart(date) {
+        chart.data.labels = hours_by_day[date].hours;
+        chart.data.datasets[0].data = hours_by_day[date].temps;
+        chart.update();
+    }
+
+    updateChart(document.querySelector(".day-card.active").dataset.date)
+
+    document.querySelectorAll(".day-card").forEach(card => {
+        card.addEventListener("click", () => {
+            document.querySelectorAll(".day-card").forEach(c => c.classList.remove("active"))
+            card.classList.add("active")
+            updateChart(card.dataset.date)
+        })
+    })
+</script>
 </html>

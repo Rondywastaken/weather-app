@@ -31,6 +31,7 @@ def get_weather(location: str):
             "longitude": lon,
             "timezone": "auto",
             "hourly": ["temperature_2m", "weather_code"],
+            "daily": ["temperature_2m_mean", "weather_code"]
         }
     )
 
