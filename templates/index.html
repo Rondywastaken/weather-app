@@ -41,7 +41,7 @@
                     <div id="forecast">
                         <div id="forecast-days">
                             {% for i in range(days | length) %}
-                                <div class="day-card {% if loop.first %}active{% endif %}", data-date="{{days[i]}}">
+                                <div class="day-card {% if loop.first %}active{% endif %}", data-date="{{ days[i] }}">
                                     <span>{{ days[i] }}</span>
                                     <span>{{ get_weather_icon(days_icons[i]) }}</span>
                                     <span>{{ days_temps[i] }}°</span>
@@ -55,6 +55,7 @@
         {% endif %}
     </div>
 </body>
+{% if location %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     const hours_by_day = {{ hours_by_day | tojson }}
@@ -95,4 +96,5 @@
         })
     })
 </script>
+{% endif %}
 </html>

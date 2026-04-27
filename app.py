@@ -1,8 +1,6 @@
 from flask import Flask, request, render_template
 from livereload import Server
-from api import get_weather, get_current_hour_index, get_weather_icon
-from collections import defaultdict
-
+from api import get_hours_by_day, get_weather, get_current_hour_index, get_weather_icon
 
 app = Flask(__name__)
 
@@ -31,12 +29,7 @@ def index():
 
     hours = data["hourly"]["time"]
     hours_temps = data["hourly"]["temperature_2m"]
-    hours_by_day = defaultdict(lambda: {"hours": [], "temps": []})
-    for i, time in enumerate(hours):
-        date, hour = time.split("T")
-        hours_by_day[date]["hours"].append(hour)
-        hours_by_day[date]["temps"].append(hours_temps[i])
-
+    hours_by_day = get_hours_by_day(hours, hours_temps)
 
     return render_template(
         "index.html",

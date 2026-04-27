@@ -67,3 +67,12 @@ def get_weather_icon(code: int) -> str:
         return "⛈️"
     else: 
         return "" 
+
+def get_hours_by_day(times: list[str], temperatures: list[float]) -> dict:
+    hours_by_day = {}
+    for i, time in enumerate(times):
+        date, hour = time.split("T")
+        hours_by_day.setdefault(date, {"hours": [], "temps": []})
+        hours_by_day[date]["hours"].append(hour)
+        hours_by_day[date]["temps"].append(temperatures[i])
+    return hours_by_day
