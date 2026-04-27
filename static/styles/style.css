@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+:root {
+    --fir-color: #FFF2C6;
+    --sec-color: #AAC4F5;
+    --thr-color: #8CA9FF;
+}
+
+body {
+    font-family: "Nunito", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    font-family: 'Nunito', sans-serif;
+    background-color: var(--fir-color);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+button, input {
+    font-family: inherit;
+}
+
+#container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    max-width: 900px;
+    padding-bottom: 25vh;
+}
+
+#search {
+    width: 100%;
+}
+
+#search form {
+    display: flex;
+    width: 100%;
+}
+
+#search form input {
+    width: 100%;
+    border: none;
+    background-color: var(--sec-color);
+    border-bottom-left-radius: 25px;
+    border-top-left-radius: 25px;
+    padding: 15px 20px;
+    font-size: 1.2rem;   
+    outline: none;
+    border-right: 2px black solid;
+}
+
+#search form input:hover {
+    background-color: var(--thr-color);
+}
+
+#search form button {
+    outline: none;
+    background-color: var(--sec-color);
+    border-bottom-right-radius: 25px;
+    border-top-right-radius: 25px;
+    padding: 15px 20px;
+    font-size: 1.2rem;   
+    display: flex;
+    align-items: center;
+    border: none;
+}
+
+#search form button:hover {
+    background-color: var(--thr-color);
+    cursor: pointer;
+}
+
+#search form button i {
+    margin-left: 5px;
+}
+
+#search form.join input,
+#search form.join button {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+#weather {
+    border-top: solid black 2px;
+    background-color: var(--sec-color);
+    width: 100%;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    box-sizing: border-box;
+    padding: 15px 20px;
+}
+
+a {
+    outline: none;
+    text-decoration: none;
+    color: black;
+}

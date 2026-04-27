@@ -3,9 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Weather App</title>
+    <link rel="stylesheet" href="{{ url_for("static", filename="styles/style.css") }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body>
-    <h1>Hello, World</h1>
+    <div id="container">
+        <a href="/"><h1>Weather App</h1></a>
+        <div id="search">
+            <form action="/" method="get" class="{% if city or error %}join{%endif%}">
+                <input  type="text" name="location" placeholder="Enter a city...">
+                <button type="submit">Search<i class="fa-solid fa-magnifying-glass"></i></button>
+            </form>
+        </div>
+
+        {% if error %}
+        <div id="weather">
+            <h2>{{ error }}</h2>
+        </div>
+        {% endif %}
+        {% if location %}
+            <div id="weather">
+                <h2>{{ city }}, {{ country }}: {{ weather_temp }}°</h2>
+            </div>
+        {% endif %}
+    </div>
 </body>
 </html>
