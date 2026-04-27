@@ -24,7 +24,21 @@
         {% endif %}
         {% if location %}
             <div id="weather">
-                <h2>{{ city }}, {{ country }}: {{ weather_temp }}°</h2>
+                <div id="general-info-container">
+                    <span>General Info:</span>
+                    <div id="general-info">
+                        <div id="general-info-text">
+                            <h2>{{ city }}, {{ country }} </h2>
+                            <h3>{{ current_day }}, {{ current_hour }}</h3>
+                        </div>
+                        <div id="general-info-temp">
+                            {{ current_icon }} {{ current_temp }}°
+                        </div>
+                    </div>
+                </div>
+                <div id="forecast-container">
+                    <span>Forecast:</span>
+                </div>
             </div>
         {% endif %}
     </div>

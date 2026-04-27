@@ -30,7 +30,7 @@ button, input {
     align-items: center;
     flex-direction: column;
     width: 100%;
-    max-width: 900px;
+    max-width: 800px;
     padding-bottom: 25vh;
 }
 
@@ -100,4 +100,50 @@ a {
     outline: none;
     text-decoration: none;
     color: black;
+}
+
+a:hover {
+    outline: none;
+    text-decoration: none;
+    color: var(--thr-color);
+}
+
+#general-info-container {
+    background-color: var(--thr-color);
+    border-radius: 25px;
+    padding: 15px 20px;
+}
+
+#general-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#general-info-text h2,
+#general-info-text h3 {
+    margin: 0;
+    padding: 0;
+}
+
+#general-info-container span {
+    font-size: 0.85rem;
+    opacity: 0.6;
+}
+
+#general-info-temp {
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+#forecast-container {
+    background-color: var(--thr-color);
+    border-radius: 25px;
+    padding: 15px 20px;
+    margin-top: 1rem;
+}
+
+#forecast-container span {
+    font-size: 0.85rem;
+    opacity: 0.6;
 }

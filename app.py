@@ -1,8 +1,10 @@
-from flask import *
+from flask import Flask, request, render_template
 from livereload import Server
-from api import *
+from api import get_weather, get_current_hour_index, get_weather_icon
 
 app = Flask(__name__)
+
+app.jinja_env.globals["get_weather_icon"] = get_weather_icon
 
 @app.route("/")
 def index():
@@ -15,12 +17,23 @@ def index():
     except Exception as e:
         return render_template("index.html", error=e)
 
+    current_hour_index = get_current_hour_index(data)
+    current_hour_temp = data["hourly"]["temperature_2m"][current_hour_index]
+    current_hour = data["hourly"]["time"][current_hour_index].split("T")[1]
+    current_day = data["hourly"]["time"][current_hour_index].split("T")[0]
+    current_hour_icon = get_weather_icon(data["hourly"]["weather_code"][current_hour_index])
+
     return render_template(
         "index.html",
         location=location,
         weather_temp=data["hourly"]["temperature_2m"][0],
         country=country,
         city=city,
+        current_day=current_day,
+        current_hour=current_hour,
+        current_temp=current_hour_temp,
+        current_icon=current_hour_icon,
+        hourly=data["hourly"]
     )
 
 if __name__ == "__main__":
@@ -28,5 +41,6 @@ if __name__ == "__main__":
     server = Server(app.wsgi_app)
     server.watch("templates/")
     server.watch("static/styles")
+    server.watch("static/scripts")
     server.watch("app.py")
     server.serve(port=5000)

@@ -1,5 +1,5 @@
 import requests
-from flask import *
+from datetime import datetime
 
 weather_api = "https://api.open-meteo.com/v1/forecast"
 geocoding_api = "https://geocoding-api.open-meteo.com/v1/search"
@@ -30,7 +30,7 @@ def get_weather(location: str):
             "latitude": lat,
             "longitude": lon,
             "timezone": "auto",
-            "hourly": "temperature_2m",
+            "hourly": ["temperature_2m", "weather_code"],
         }
     )
 
@@ -42,3 +42,27 @@ def get_weather(location: str):
         raise ValueError(f"No results found for '{location}'")
 
     return data, country, city
+
+def get_current_hour_index(data: dict) -> int:
+    times = data["hourly"]["time"]
+    current_time = datetime.now().strftime("%Y-%m-%dT%H:00")
+    return times.index(current_time)
+
+def get_weather_icon(code: int) -> str:
+    # following the WMO standard as given by API
+    if code == 0: 
+        return "☀️"   
+    elif code in [1, 2, 3]: 
+        return "⛅"
+    elif code in [45, 48]: 
+        return "🌫️"
+    elif code in [51, 53, 55, 56, 57]: 
+        return "🌦️" 
+    elif code in [61, 63, 65, 66, 67, 80, 81, 82]: 
+        return "🌧️"
+    elif code in [71, 73, 75, 77, 85, 86]: 
+        return "❄️"
+    elif code in [95, 96, 99]: 
+        return "⛈️"
+    else: 
+        return "" 
